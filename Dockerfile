@@ -1,6 +1,5 @@
-FROM java
-ADD ./target/myproject-0.0.1-SNAPSHOT.jar /myproject-0.0.1-SNAPSHOT.jar
-ADD ./run.sh /run.sh
-RUN chmod a+x /run.sh
-EXPOSE 8080:8080
-CMD /run.sh
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+EXPOSE 9090
+ADD ./target/myproject-0.0.1-SNAPSHOT.jar /myproject.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=9090","-jar","/myproject.jar"]
